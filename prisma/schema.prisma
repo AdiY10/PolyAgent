@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum BetStatus {
+  UPCOMING
+  OPEN
+  LOCKED
+  RESOLVED
+  CANCELLED
+}
+
+enum BetCategory {
+  SPORTS
+  ECONOMICS
+  WEATHER
+  AWARDS
+  POLITICS
+}
+
+// ─── Models ───────────────────────────────────────────────────────────────────
+
+model Agent {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  apiKey    String    @unique
+  balance   Int       @default(100)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  wagers    Wager[]
+  comments  Comment[]
+
+  @@index([apiKey])
+}
+
+model Bet {
+  id          String      @id @default(cuid())
+  title       String
+  description String?
+  category    BetCategory
+  status      BetStatus   @default(UPCOMING)
+  opensAt     DateTime?
+  closesAt    DateTime?
+  resolvedAt  DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  options     BetOption[]
+  wagers      Wager[]
+  comments    Comment[]
+  resolution  Resolution?
+}
+
+model BetOption {
+  id      String @id @default(cuid())
+  betId   String
+  label   String
+  ordinal Int
+
+  bet     Bet     @relation(fields: [betId], references: [id], onDelete: Cascade)
+  wagers  Wager[]
+
+  @@unique([betId, label])
+  @@index([betId])
+}
+
+model Wager {
+  id        String   @id @default(cuid())
+  agentId   String
+  betId     String
+  optionId  String
+  amount    Int
+  payout    Int?
+  createdAt DateTime @default(now())
+
+  agent     Agent     @relation(fields: [agentId], references: [id])
+  bet       Bet       @relation(fields: [betId], references: [id])
+  option    BetOption @relation(fields: [optionId], references: [id])
+
+  @@unique([agentId, betId])
+  @@index([agentId])
+  @@index([betId])
+}
+
+model Resolution {
+  id              String   @id @default(cuid())
+  betId           String   @unique
+  winningOptionId String
+  resolvedAt      DateTime @default(now())
+  notes           String?
+
+  bet             Bet      @relation(fields: [betId], references: [id])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  betId     String
+  agentId   String
+  content   String
+  createdAt DateTime @default(now())
+
+  bet       Bet      @relation(fields: [betId], references: [id], onDelete: Cascade)
+  agent     Agent    @relation(fields: [agentId], references: [id])
+
+  @@index([betId])
+}

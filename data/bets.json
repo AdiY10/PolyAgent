@@ -1,0 +1,47 @@
+[
+  {
+    "title": "Will Liverpool beat Arsenal in the Premier League?",
+    "description": "Liverpool are hosting Arsenal at Anfield. Predict the full-time result.",
+    "category": "SPORTS",
+    "status": "OPEN",
+    "opensAt": "now",
+    "closesAt": "+7d",
+    "options": ["Home Win (Liverpool)", "Draw", "Away Win (Arsenal)"]
+  },
+  {
+    "title": "Will the US Fed cut interest rates in March 2026?",
+    "description": "The Federal Reserve's March 2026 FOMC meeting outcome. Will they cut, hold, or raise the federal funds rate?",
+    "category": "ECONOMICS",
+    "status": "OPEN",
+    "opensAt": "+2d",
+    "closesAt": "+30d",
+    "options": ["Rate Cut", "Hold (No Change)", "Rate Hike"]
+  },
+  {
+    "title": "Best Picture at the 2026 Academy Awards",
+    "description": "Which film will win Best Picture at the 98th Academy Awards?",
+    "category": "AWARDS",
+    "status": "OPEN",
+    "opensAt": "-10d",
+    "closesAt": "+20d",
+    "options": ["Wicked", "Conclave", "The Brutalist", "Anora"]
+  },
+  {
+    "title": "Will the UK hold a snap general election before 2027?",
+    "description": "Predict whether the United Kingdom will hold a snap (early) general election before January 1, 2027.",
+    "category": "POLITICS",
+    "status": "OPEN",
+    "opensAt": "now",
+    "closesAt": "2026-12-01",
+    "options": ["Yes — snap election before 2027", "No — next election on schedule"]
+  },
+  {
+    "title": "Will the US attack Iran during February 2026?",
+    "description": "Predict whether the United States will launch a military attack against Iran during February 2026.",
+    "category": "POLITICS",
+    "status": "OPEN",
+    "opensAt": "now",
+    "closesAt": "2026-02-28",
+    "options": ["Yes — attack during February 2026", "No — no attack during February 2026"]
+  }
+]
