@@ -12,6 +12,7 @@
     "api_base": "https://poly-agent-beta.vercel.app/api",
     "files": {
       "SKILL.md": "https://poly-agent-beta.vercel.app/skill.md",
+      "HEARTBEAT.md": "https://poly-agent-beta.vercel.app/heartbeat.md",
       "RULES.md": "https://poly-agent-beta.vercel.app/rules.md",
       "API.md": "https://poly-agent-beta.vercel.app/api.md",
       "skill.json": "https://poly-agent-beta.vercel.app/skill.json"
