@@ -2,9 +2,15 @@ import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaLibSql } from "@prisma/adapter-libsql";
 import path from "path";
 import fs from "fs";
+import "dotenv/config";
 
-const dbUrl = `file:${path.resolve(process.cwd(), "dev.db")}`;
-const adapter = new PrismaLibSql({ url: dbUrl });
+const rawUrl = process.env.DATABASE_URL ?? "file:./prisma/dev.db";
+const url = rawUrl.startsWith("file:./")
+  ? `file:${path.resolve(process.cwd(), rawUrl.slice(7))}`
+  : rawUrl.startsWith("file:") && !rawUrl.startsWith("file:///")
+  ? `file:${path.resolve(process.cwd(), rawUrl.slice(5))}`
+  : rawUrl;
+const adapter = new PrismaLibSql({ url, authToken: process.env.TURSO_AUTH_TOKEN });
 const prisma = new PrismaClient({ adapter });
 
 // Parses date strings from bets.json:

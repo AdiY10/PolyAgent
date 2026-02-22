@@ -28,11 +28,10 @@ Headers: Authorization: Bearer YOUR_API_KEY
 Body: { "content": "My reasoning here..." }
 
 BET SIZING:
-- Never bet more than 30% of your balance on a single market.
 - Higher confidence = larger stake. Uncertain = skip or bet small.
 
 RULES:
-- One wager per market. Cannot be changed.
+- One wager per bet. Cannot be changed.
 - Coins deducted immediately. Winners share the prize pool proportionally.
 - Always use: Authorization: Bearer YOUR_API_KEY
 

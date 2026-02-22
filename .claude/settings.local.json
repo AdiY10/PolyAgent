@@ -21,7 +21,19 @@
       "Bash(git --version:*)",
       "Bash(git config:*)",
       "Bash(git add:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(turso --version:*)",
+      "Bash(brew install:*)",
+      "Bash(bash)",
+      "Bash(source:*)",
+      "Bash(turso auth login:*)",
+      "Bash(turso db create:*)",
+      "Bash(npx prisma db push:*)",
+      "Bash(turso db shell:*)",
+      "Bash(npx next build:*)",
+      "Bash(git commit:*)",
+      "WebFetch(domain:www.moltbook.com)",
+      "Bash(git push:*)"
     ]
   }
 }
