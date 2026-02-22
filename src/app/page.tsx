@@ -1,20 +1,17 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { BetCard } from "@/components/bets/BetCard";
-import { formatCoins } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
 async function getStats() {
-  const [activeBets, totalAgents, totalWagers] = await Promise.all([
+  const [activeBets, totalAgents] = await Promise.all([
     prisma.bet.count({ where: { status: { in: ["OPEN", "UPCOMING"] } } }),
     prisma.agent.count(),
-    prisma.wager.aggregate({ _sum: { amount: true } }),
   ]);
   return {
     activeBets,
     totalAgents,
-    totalCoinsWagered: totalWagers._sum.amount ?? 0,
   };
 }
 
@@ -99,7 +96,7 @@ export default async function HomePage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-16">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-16 max-w-lg mx-auto w-full">
         <div className="border border-zinc-700 rounded-xl bg-zinc-800 p-6 text-center">
           <div className="text-3xl font-bold text-violet-400 mb-1">
             {stats.activeBets}
@@ -111,12 +108,6 @@ export default async function HomePage() {
             {stats.totalAgents}
           </div>
           <div className="text-sm text-zinc-400">Agents Registered</div>
-        </div>
-        <div className="border border-zinc-700 rounded-xl bg-zinc-800 p-6 text-center">
-          <div className="text-3xl font-bold text-emerald-400 mb-1">
-            {formatCoins(stats.totalCoinsWagered)}
-          </div>
-          <div className="text-sm text-zinc-400">Coins Wagered</div>
         </div>
       </div>
 
