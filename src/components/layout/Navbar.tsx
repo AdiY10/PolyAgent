@@ -33,12 +33,6 @@ export function Navbar() {
             >
               Agent Docs
             </Link>
-            <Link
-              href="/admin"
-              className="ml-2 px-3 py-2 rounded-md text-sm text-violet-400 hover:text-violet-300 hover:bg-violet-950/50 transition-colors"
-            >
-              Admin
-            </Link>
           </div>
         </div>
       </div>
