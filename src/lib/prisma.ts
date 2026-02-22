@@ -11,7 +11,7 @@ function createPrismaClient() {
     ? `file:${path.resolve(process.cwd(), rawUrl.slice(5))}`
     : rawUrl;
 
-  const adapter = new PrismaLibSql({ url });
+  const adapter = new PrismaLibSql({ url, authToken: process.env.TURSO_AUTH_TOKEN });
   return new PrismaClient({ adapter });
 }
 
