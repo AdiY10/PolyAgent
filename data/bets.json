@@ -10,6 +10,16 @@
     "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg"
   },
   {
+    "title": "Will the US attack Iran during February 2026?",
+    "description": "Predict whether the United States will launch a military attack against Iran during February 2026.",
+    "category": "POLITICS",
+    "status": "OPEN",
+    "opensAt": "now",
+    "closesAt": "2026-02-28",
+    "options": ["Yes — attack during February 2026", "No — no attack during February 2026"],
+    "imageUrl": "https://flagcdn.com/w80/us.png"
+  },
+  {
     "title": "Will the US Fed cut interest rates in March 2026?",
     "description": "The Federal Reserve's March 2026 FOMC meeting outcome. Will they cut, hold, or raise the federal funds rate?",
     "category": "ECONOMICS",
@@ -17,7 +27,7 @@
     "opensAt": "+2d",
     "closesAt": "+30d",
     "options": ["Rate Cut", "Hold (No Change)", "Rate Hike"],
-    "imageUrl": null
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Seal_of_the_United_States_Federal_Reserve_System.svg"
   },
   {
     "title": "Best Picture at the 2026 Academy Awards",
@@ -27,7 +37,7 @@
     "opensAt": "-10d",
     "closesAt": "+20d",
     "options": ["Wicked", "Conclave", "The Brutalist", "Anora"],
-    "imageUrl": null
+    "imageUrl": "https://ui-avatars.com/api/?name=🏆&background=f59e0b&color=fff&size=80&bold=true"
   },
   {
     "title": "Will the UK hold a snap general election before 2027?",
@@ -38,16 +48,6 @@
     "closesAt": "2026-12-01",
     "options": ["Yes — snap election before 2027", "No — next election on schedule"],
     "imageUrl": "https://flagcdn.com/w80/gb.png"
-  },
-  {
-    "title": "Will the US attack Iran during February 2026?",
-    "description": "Predict whether the United States will launch a military attack against Iran during February 2026.",
-    "category": "POLITICS",
-    "status": "OPEN",
-    "opensAt": "now",
-    "closesAt": "2026-02-28",
-    "options": ["Yes — attack during February 2026", "No — no attack during February 2026"],
-    "imageUrl": "https://flagcdn.com/w80/us.png"
   },
   {
     "title": "Will Bitcoin reach $150,000 by December 31, 2026?",
@@ -66,7 +66,7 @@
     "status": "OPEN",
     "opensAt": "now",
     "closesAt": "+90d",
-    "options": ["Real Madrid", "Manchester City", "Paris Saint-Germain", "FC Barcelona", "Bayern Munich"],
+    "options": ["Real Madrid", "Manchester City", "Paris Saint-Germain", "FC Barcelona", "Bayern Munich", "Liverpool", "Chelsea", "Juventus", "AC Milan", "Inter Milan", "Ajax", "Porto"],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f5/UEFA_Champions_League.svg"
   },
   {
@@ -76,8 +76,8 @@
     "status": "UPCOMING",
     "opensAt": "+60d",
     "closesAt": "2026-07-15",
-    "options": ["Brazil", "Argentina", "France", "England", "Germany", "Spain"],
-    "imageUrl": null
+    "options": ["Brazil", "Argentina", "France", "England", "Germany", "Spain", "Italy", "Netherlands", "Portugal", "Belgium", "Croatia", "Uruguay", "Mexico", "USA", "Canada"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/45/2026_FIFA_World_Cup_logo.svg"
   },
   {
     "title": "Will SpaceX Starship reach stable orbit in 2026?",
@@ -87,7 +87,7 @@
     "opensAt": "now",
     "closesAt": "2026-12-31",
     "options": ["Yes — orbital mission success", "No — doesn't achieve stable orbit"],
-    "imageUrl": null
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/SpaceX-Logo.svg"
   },
   {
     "title": "Will the S&P 500 close above 6,500 by end of 2026?",
@@ -97,17 +97,7 @@
     "opensAt": "now",
     "closesAt": "2026-12-31",
     "options": ["Yes — above 6,500", "No — at or below 6,500"],
-    "imageUrl": null
-  },
-  {
-    "title": "Will there be a ceasefire in Gaza by April 2026?",
-    "description": "Predict whether a formally agreed and announced ceasefire will be in effect in Gaza by April 30, 2026.",
-    "category": "POLITICS",
-    "status": "OPEN",
-    "opensAt": "now",
-    "closesAt": "2026-04-30",
-    "options": ["Yes — ceasefire by April 30", "No — conflict continues"],
-    "imageUrl": "https://flagcdn.com/w80/ps.png"
+    "imageUrl": "https://ui-avatars.com/api/?name=PA&background=7c3aed&color=fff&size=80&bold=true"
   },
   {
     "title": "Eurovision Song Contest 2026 — Winner",
@@ -116,8 +106,8 @@
     "status": "UPCOMING",
     "opensAt": "+90d",
     "closesAt": "+150d",
-    "options": ["Sweden", "Italy", "United Kingdom", "Ukraine", "Switzerland"],
-    "imageUrl": null
+    "options": ["Israel", "Sweden", "Italy", "United Kingdom", "Ukraine", "Switzerland", "Spain", "Norway", "Netherlands", "Greece", "Denmark", "Finland", "Portugal", "Belgium", "Austria", "Ireland", "Czech Republic", "Hungary", "Poland", "Australia", "Cyprus", "Serbia", "Slovenia", "Croatia", "Lithuania", "Latvia", "Estonia"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Eurovision_Song_Contest_logo.svg"
   },
   {
     "title": "Wimbledon 2026 Men's Singles Champion",
@@ -127,7 +117,7 @@
     "opensAt": "+90d",
     "closesAt": "+140d",
     "options": ["Carlos Alcaraz", "Jannik Sinner", "Novak Djokovic", "Alexander Zverev"],
-    "imageUrl": null
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Tennis_ball.svg/200px-Tennis_ball.svg.png"
   },
   {
     "title": "Will Trump's approval rating exceed 50% in Q3 2026?",
@@ -138,15 +128,5 @@
     "closesAt": "2026-09-30",
     "options": ["Yes — exceeds 50%", "No — stays below 50%"],
     "imageUrl": "https://flagcdn.com/w80/us.png"
-  },
-  {
-    "title": "Will 2026 break global temperature records?",
-    "description": "Predict whether 2026 will be confirmed as the hottest year on record globally, surpassing the 2023/2024 records.",
-    "category": "WEATHER",
-    "status": "OPEN",
-    "opensAt": "now",
-    "closesAt": "2027-01-31",
-    "options": ["Yes — new all-time heat record", "No — stays below prior records"],
-    "imageUrl": null
   }
 ]
