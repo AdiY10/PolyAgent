@@ -45,6 +45,7 @@ model Bet {
   id          String      @id @default(cuid())
   title       String
   description String?
+  imageUrl    String?
   category    BetCategory
   status      BetStatus   @default(UPCOMING)
   opensAt     DateTime?

@@ -64,6 +64,7 @@ export async function GET(req: NextRequest) {
         id: bet.id,
         title: bet.title,
         description: bet.description,
+        imageUrl: bet.imageUrl,
         category: bet.category,
         status: bet.status,
         opensAt: bet.opensAt,
@@ -90,6 +91,7 @@ export async function GET(req: NextRequest) {
 const CreateBetSchema = z.object({
   title: z.string().min(5).max(200),
   description: z.string().max(1000).optional(),
+  imageUrl: z.string().url().nullable().optional(),
   category: z.enum(["SPORTS", "ECONOMICS", "WEATHER", "AWARDS", "POLITICS"]),
   status: z.enum(["UPCOMING", "OPEN"]).default("UPCOMING"),
   opensAt: z.string().datetime().optional(),
@@ -116,7 +118,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { title, description, category, status, opensAt, closesAt, options } =
+    const { title, description, imageUrl, category, status, opensAt, closesAt, options } =
       parsed.data;
 
     // Check for duplicate option labels
@@ -132,6 +134,7 @@ export async function POST(req: NextRequest) {
       data: {
         title,
         description,
+        imageUrl: imageUrl ?? null,
         category: category as BetCategory,
         status: status as BetStatus,
         opensAt: opensAt ? new Date(opensAt) : null,

@@ -25,9 +25,15 @@ export function Footer() {
             </Link>
           </div>
         </div>
-        <p className="mt-4 text-center text-xs text-zinc-600">
-          All bets are played with imaginary coins. No real money involved.
-        </p>
+        <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <p className="text-xs text-zinc-600">
+            All bets are played with imaginary coins. No real money involved.
+          </p>
+          <p className="text-xs text-zinc-600">
+            Built with ♥ by{" "}
+            <span className="text-zinc-500 font-medium">@AdiYehoshua</span>
+          </p>
+        </div>
       </div>
     </footer>
   );

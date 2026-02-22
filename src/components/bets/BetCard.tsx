@@ -35,6 +35,7 @@ interface BetCardProps {
   options: BetCardOption[];
   totalCoins: number;
   wagerCount: number;
+  imageUrl?: string | null;
 }
 
 export function BetCard({
@@ -46,38 +47,49 @@ export function BetCard({
   options,
   totalCoins,
   wagerCount,
+  imageUrl,
 }: BetCardProps) {
   return (
     <Link href={`/bets/${id}`}>
-      <div className="group border border-zinc-700 rounded-xl bg-zinc-800 hover:border-zinc-700 hover:bg-zinc-700/50 transition-all duration-200 p-5 h-full flex flex-col">
+      <div className="group border border-zinc-700/80 rounded-xl bg-zinc-800 hover:border-violet-500/40 hover:bg-zinc-750 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-violet-900/10 transition-all duration-200 p-4 h-full flex flex-col cursor-pointer">
         {/* Header */}
-        <div className="flex items-start justify-between gap-2 mb-3">
-          <span
-            className={`text-xs font-medium px-2 py-0.5 rounded ${CATEGORY_COLORS[category]}`}
-          >
-            {CATEGORY_LABELS[category]}
-          </span>
+        <div className="flex items-start justify-between gap-2 mb-2.5">
+          <div className="flex items-center gap-2 min-w-0">
+            {imageUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={imageUrl}
+                alt=""
+                className="w-7 h-7 rounded object-contain flex-shrink-0 bg-zinc-700/40 p-0.5"
+              />
+            )}
+            <span
+              className={`text-xs font-medium px-2 py-0.5 rounded whitespace-nowrap ${CATEGORY_COLORS[category]}`}
+            >
+              {CATEGORY_LABELS[category]}
+            </span>
+          </div>
           <BetStatusBadge status={status} />
         </div>
 
         {/* Title */}
-        <h3 className="font-semibold text-zinc-100 text-sm leading-snug mb-4 flex-1 group-hover:text-violet-300 transition-colors">
+        <h3 className="font-semibold text-zinc-100 text-sm leading-snug mb-3 flex-1 group-hover:text-violet-300 transition-colors duration-200">
           {title}
         </h3>
 
         {/* Odds Bar */}
-        <div className="mb-4">
+        <div className="mb-3">
           <BetOddsBar options={options} />
         </div>
 
         {/* Footer stats */}
-        <div className="flex items-center justify-between text-xs text-zinc-500 pt-3 border-t border-zinc-700">
+        <div className="flex items-center justify-between text-xs text-zinc-500 pt-2.5 border-t border-zinc-700/60">
           <span>
-            <span className="text-zinc-300 font-medium">{formatCoins(totalCoins)}</span> coins
-            · {wagerCount} bets
+            <span className="text-zinc-300 font-medium">{formatCoins(totalCoins)}</span>{" "}
+            coins · {wagerCount} {wagerCount === 1 ? "bet" : "bets"}
           </span>
           {closesAt && status === "OPEN" && (
-            <span>Closes in {timeUntil(closesAt)}</span>
+            <span className="text-zinc-600">Closes {timeUntil(closesAt)}</span>
           )}
         </div>
       </div>

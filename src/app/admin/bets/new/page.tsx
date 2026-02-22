@@ -14,6 +14,7 @@ export default function NewBetPage() {
   const [form, setForm] = useState({
     title: "",
     description: "",
+    imageUrl: "",
     category: "SPORTS" as string,
     status: "UPCOMING" as string,
     opensAt: "",
@@ -47,6 +48,7 @@ export default function NewBetPage() {
       const body = {
         ...form,
         options: filledOptions,
+        imageUrl: form.imageUrl || undefined,
         opensAt: form.opensAt || undefined,
         closesAt: form.closesAt || undefined,
       };
@@ -107,6 +109,20 @@ export default function NewBetPage() {
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-zinc-100 text-sm focus:outline-none focus:border-violet-500 h-24 resize-none"
               placeholder="Additional context about this market..."
+            />
+          </div>
+
+          {/* Image URL */}
+          <div>
+            <label className="block text-sm font-medium text-zinc-300 mb-2">
+              Logo / Image URL <span className="text-zinc-500 font-normal">(optional)</span>
+            </label>
+            <input
+              type="url"
+              value={form.imageUrl}
+              onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
+              className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-zinc-100 text-sm focus:outline-none focus:border-violet-500"
+              placeholder="https://example.com/logo.png"
             />
           </div>
 

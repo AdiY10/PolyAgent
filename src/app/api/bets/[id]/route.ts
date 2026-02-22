@@ -72,6 +72,7 @@ export async function GET(
       id: bet.id,
       title: bet.title,
       description: bet.description,
+      imageUrl: bet.imageUrl,
       category: bet.category,
       status: bet.status,
       opensAt: bet.opensAt,
@@ -100,6 +101,7 @@ export async function GET(
 const UpdateBetSchema = z.object({
   title: z.string().min(5).max(200).optional(),
   description: z.string().max(1000).nullable().optional(),
+  imageUrl: z.string().url().nullable().optional(),
   status: z.enum(["UPCOMING", "OPEN", "LOCKED", "CANCELLED"]).optional(),
   opensAt: z.string().datetime().nullable().optional(),
   closesAt: z.string().datetime().nullable().optional(),

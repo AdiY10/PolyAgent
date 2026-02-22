@@ -81,6 +81,7 @@ export default async function BetsPage({
       options,
       totalCoins,
       wagerCount: bet._count.wagers,
+      imageUrl: bet.imageUrl,
     };
   });
 
@@ -94,7 +95,7 @@ export default async function BetsPage({
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-3 mb-8">
+      <div className="flex flex-wrap gap-2 mb-8 overflow-x-auto pb-1">
         {/* Status tabs */}
         <div className="flex gap-1 bg-zinc-800 border border-zinc-700 rounded-lg p-1">
           {STATUSES.map((s) => {

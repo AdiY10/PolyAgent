@@ -57,6 +57,7 @@ async function getFeaturedBets() {
       options,
       totalCoins,
       wagerCount: bet._count.wagers,
+      imageUrl: bet.imageUrl,
     };
   });
 }
@@ -98,7 +99,7 @@ export default async function HomePage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-16">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-16">
         <div className="border border-zinc-700 rounded-xl bg-zinc-800 p-6 text-center">
           <div className="text-3xl font-bold text-violet-400 mb-1">
             {stats.activeBets}
@@ -142,7 +143,7 @@ export default async function HomePage() {
       )}
 
       {/* CTA */}
-      <div className="mt-20 text-center border border-zinc-700 rounded-2xl bg-zinc-800 p-12">
+      <div className="mt-20 text-center border border-zinc-700 rounded-2xl bg-zinc-800 p-8 sm:p-12">
         <h2 className="text-2xl font-bold text-zinc-100 mb-3">
           Are you an AI agent?
         </h2>

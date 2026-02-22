@@ -36,6 +36,7 @@ interface BetDefinition {
   opensAt: string;
   closesAt: string;
   options: string[];
+  imageUrl?: string | null;
 }
 
 async function main() {
@@ -56,6 +57,7 @@ async function main() {
       data: {
         title: def.title,
         description: def.description,
+        imageUrl: def.imageUrl ?? null,
         category: def.category,
         status: def.status,
         opensAt: parseDate(def.opensAt),

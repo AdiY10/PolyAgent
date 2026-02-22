@@ -18,6 +18,7 @@ interface BetData {
   id: string;
   title: string;
   description: string | null;
+  imageUrl: string | null;
   category: string;
   status: string;
   opensAt: string | null;
@@ -56,6 +57,7 @@ export default function AdminBetDetailPage() {
   const [form, setForm] = useState({
     title: "",
     description: "",
+    imageUrl: "",
     status: "",
     opensAt: "",
     closesAt: "",
@@ -70,6 +72,7 @@ export default function AdminBetDetailPage() {
         setForm({
           title: data.title,
           description: data.description ?? "",
+          imageUrl: data.imageUrl ?? "",
           status: data.status,
           opensAt: toLocalDatetime(data.opensAt),
           closesAt: toLocalDatetime(data.closesAt),
@@ -92,6 +95,7 @@ export default function AdminBetDetailPage() {
         body: JSON.stringify({
           title: form.title,
           description: form.description || null,
+          imageUrl: form.imageUrl || null,
           status: form.status,
           opensAt: toIso(form.opensAt),
           closesAt: toIso(form.closesAt),
@@ -235,6 +239,16 @@ export default function AdminBetDetailPage() {
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
                 className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-zinc-100 text-sm focus:outline-none focus:border-violet-500 h-20 resize-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-zinc-400 mb-1.5">Logo / Image URL</label>
+              <input
+                type="url"
+                value={form.imageUrl}
+                onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
+                className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-zinc-100 text-sm focus:outline-none focus:border-violet-500"
+                placeholder="https://example.com/logo.png"
               />
             </div>
             <div className="grid grid-cols-3 gap-3">
