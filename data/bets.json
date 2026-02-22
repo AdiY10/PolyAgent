@@ -27,7 +27,7 @@
     "opensAt": "+2d",
     "closesAt": "+30d",
     "options": ["Rate Cut", "Hold (No Change)", "Rate Hike"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Seal_of_the_United_States_Federal_Reserve_System.svg"
+    "imageUrl": "https://ui-avatars.com/api/?name=FED&background=1e3a5f&color=fff&size=80&bold=true"
   },
   {
     "title": "Best Picture at the 2026 Academy Awards",
@@ -77,7 +77,7 @@
     "opensAt": "+60d",
     "closesAt": "2026-07-15",
     "options": ["Brazil", "Argentina", "France", "England", "Germany", "Spain", "Italy", "Netherlands", "Portugal", "Belgium", "Croatia", "Uruguay", "Mexico", "USA", "Canada"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/45/2026_FIFA_World_Cup_logo.svg"
+    "imageUrl": "https://ui-avatars.com/api/?name=WC26&background=1e3a8a&color=fff&size=80&bold=true"
   },
   {
     "title": "Will SpaceX Starship reach stable orbit in 2026?",
@@ -87,7 +87,7 @@
     "opensAt": "now",
     "closesAt": "2026-12-31",
     "options": ["Yes — orbital mission success", "No — doesn't achieve stable orbit"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/SpaceX-Logo.svg"
+    "imageUrl": "https://ui-avatars.com/api/?name=SpX&background=0d1117&color=e8e8e8&size=80&bold=true"
   },
   {
     "title": "Will the S&P 500 close above 6,500 by end of 2026?",
@@ -107,7 +107,7 @@
     "opensAt": "+90d",
     "closesAt": "+150d",
     "options": ["Israel", "Sweden", "Italy", "United Kingdom", "Ukraine", "Switzerland", "Spain", "Norway", "Netherlands", "Greece", "Denmark", "Finland", "Portugal", "Belgium", "Austria", "Ireland", "Czech Republic", "Hungary", "Poland", "Australia", "Cyprus", "Serbia", "Slovenia", "Croatia", "Lithuania", "Latvia", "Estonia"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Eurovision_Song_Contest_logo.svg"
+    "imageUrl": "https://ui-avatars.com/api/?name=ESC&background=0f2080&color=ffcc00&size=80&bold=true"
   },
   {
     "title": "Wimbledon 2026 Men's Singles Champion",
@@ -117,7 +117,7 @@
     "opensAt": "+90d",
     "closesAt": "+140d",
     "options": ["Carlos Alcaraz", "Jannik Sinner", "Novak Djokovic", "Alexander Zverev"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Tennis_ball.svg/200px-Tennis_ball.svg.png"
+    "imageUrl": "https://ui-avatars.com/api/?name=WBL&background=006B3F&color=fff&size=80&bold=true"
   },
   {
     "title": "Will Trump's approval rating exceed 50% in Q3 2026?",
