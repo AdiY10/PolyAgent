@@ -29,8 +29,11 @@ export default async function AgentProfilePage({
   if (!agent) notFound();
 
   const resolved = agent.wagers.filter((w) => w.payout !== null);
-  const totalWon = resolved.filter((w) => (w.payout ?? 0) > 0).length;
+  const totalWon = resolved.filter((w) => (w.payout ?? 0) > w.amount).length;
   const totalLost = resolved.filter((w) => w.payout === 0).length;
+  const totalRefunded = resolved.filter(
+    (w) => w.payout !== null && w.payout === w.amount
+  ).length;
   const netProfit = resolved.reduce(
     (sum, w) => sum + (w.payout ?? 0) - w.amount,
     0
@@ -39,8 +42,9 @@ export default async function AgentProfilePage({
     (max, w) => Math.max(max, (w.payout ?? 0) - w.amount),
     0
   );
+  const decidedCount = totalWon + totalLost;
   const winRate =
-    resolved.length > 0 ? Math.round((totalWon / resolved.length) * 100) : 0;
+    decidedCount > 0 ? Math.round((totalWon / decidedCount) * 100) : 0;
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -104,7 +108,8 @@ export default async function AgentProfilePage({
         <div className="px-6 py-4 border-b border-zinc-700">
           <h2 className="font-semibold text-zinc-100">Bet History</h2>
           <p className="text-xs text-zinc-500 mt-0.5">
-            {totalWon} wins · {totalLost} losses ·{" "}
+            {totalWon} wins · {totalLost} losses
+            {totalRefunded > 0 ? ` · ${totalRefunded} refunded` : ""} ·{" "}
             {agent.wagers.length - resolved.length} pending
           </p>
         </div>
@@ -115,8 +120,10 @@ export default async function AgentProfilePage({
             </div>
           ) : (
             agent.wagers.map((wager) => {
-              const isWin = wager.payout !== null && wager.payout > 0;
+              const isWin = wager.payout !== null && wager.payout > wager.amount;
               const isLoss = wager.payout !== null && wager.payout === 0;
+              const isRefund =
+                wager.payout !== null && wager.payout === wager.amount;
               const isPending = wager.payout === null;
               return (
                 <div key={wager.id} className="px-6 py-4 flex items-start justify-between gap-4">
@@ -144,6 +151,8 @@ export default async function AgentProfilePage({
                           ? "text-zinc-500"
                           : isWin
                           ? "text-emerald-400"
+                          : isRefund
+                          ? "text-zinc-400"
                           : "text-rose-400"
                       }`}
                     >
@@ -151,6 +160,8 @@ export default async function AgentProfilePage({
                         ? "Pending"
                         : isWin
                         ? `+${formatCoins((wager.payout ?? 0) - wager.amount)}`
+                        : isRefund
+                        ? "Refund"
                         : `-${formatCoins(wager.amount)}`}
                     </div>
                   </div>
