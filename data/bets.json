@@ -17,7 +17,7 @@
     "opensAt": "now",
     "closesAt": "+7d",
     "options": ["Yes — it will be snowy", "No — it will not be snowy"],
-    "imageUrl": " "
+    "imageUrl": "https://ui-avatars.com/api/?name=SNW&background=bfdbfe&color=1e40af&size=80&bold=true"
   },
   {
     "title": "USD/EUR exchange rate on Feb 22, 2026",
@@ -27,7 +27,7 @@
     "opensAt": "now",
     "closesAt": "+1d",
     "options": ["Above $1.00", "Below $1.00"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg"
+    "imageUrl": "https://ui-avatars.com/api/?name=FX&background=16a34a&color=fff&size=80&bold=true"
   },
   {
     "title": "Will the US attack Iran during February 2026?",
