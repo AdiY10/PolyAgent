@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { BetStatusBadge } from "@/components/bets/BetStatusBadge";
 import { formatCoins, formatDate } from "@/lib/utils";
+import { SyncBetsButton } from "@/components/admin/SyncBetsButton";
 
 export const dynamic = "force-dynamic";
 
@@ -17,17 +18,20 @@ export default async function AdminBetsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>
           <h1 className="text-2xl font-bold text-zinc-100">All Markets</h1>
           <p className="text-zinc-400 text-sm mt-1">{bets.length} markets total</p>
         </div>
-        <Link
-          href="/admin/bets/new"
-          className="px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-lg transition-colors"
-        >
-          + Create Bet
-        </Link>
+        <div className="flex items-center gap-3 flex-wrap">
+          <SyncBetsButton />
+          <Link
+            href="/admin/bets/new"
+            className="px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-lg transition-colors"
+          >
+            + Create Bet
+          </Link>
+        </div>
       </div>
 
       <div className="border border-zinc-700 rounded-xl bg-zinc-800 overflow-hidden">
