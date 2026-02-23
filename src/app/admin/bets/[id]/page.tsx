@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 
 const STATUSES = ["UPCOMING", "OPEN", "LOCKED", "CANCELLED"] as const;
@@ -33,6 +33,20 @@ interface BetData {
   } | null;
 }
 
+interface PayoutRow {
+  agentId: string;
+  agentName: string;
+  wagered: number;
+  payout: number;
+  won: boolean;
+}
+
+interface ResolveResult {
+  winningOptionLabel: string;
+  notes?: string;
+  payouts: PayoutRow[];
+}
+
 function toLocalDatetime(iso: string | null) {
   if (!iso) return "";
   return new Date(iso).toISOString().slice(0, 16);
@@ -45,7 +59,6 @@ function toIso(local: string) {
 
 export default function AdminBetDetailPage() {
   const params = useParams<{ id: string }>();
-  const router = useRouter();
   const [bet, setBet] = useState<BetData | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -54,6 +67,7 @@ export default function AdminBetDetailPage() {
   const [resolveError, setResolveError] = useState("");
   const [winningOptionId, setWinningOptionId] = useState("");
   const [resolveNotes, setResolveNotes] = useState("");
+  const [resolveResult, setResolveResult] = useState<ResolveResult | null>(null);
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -129,7 +143,12 @@ export default function AdminBetDetailPage() {
       });
       const data = await res.json();
       if (res.ok) {
-        router.push("/admin/bets");
+        setResolveResult({
+          winningOptionLabel: data.resolution.winningOptionLabel,
+          notes: data.resolution.notes,
+          payouts: data.payouts,
+        });
+        setBet((prev) => prev ? { ...prev, status: "RESOLVED" } : prev);
       } else {
         setResolveError(data.error ?? "Failed to resolve");
       }
@@ -151,6 +170,13 @@ export default function AdminBetDetailPage() {
   const isCancelled = bet.status === "CANCELLED";
   const canResolve = !isResolved && !isCancelled;
 
+  const totalPrizePool = resolveResult
+    ? resolveResult.payouts.reduce((s, p) => s + p.wagered, 0)
+    : 0;
+  const winnersCount = resolveResult
+    ? resolveResult.payouts.filter((p) => p.won).length
+    : 0;
+
   return (
     <div className="max-w-3xl">
       <div className="flex items-center gap-3 mb-8">
@@ -169,8 +195,8 @@ export default function AdminBetDetailPage() {
         </Link>
       </div>
 
-      {/* Resolution banner */}
-      {bet.resolution && (
+      {/* Resolution banner (pre-existing resolved state) */}
+      {bet.resolution && !resolveResult && (
         <div className="border border-emerald-700 bg-emerald-950/20 rounded-xl p-4 mb-6">
           <div className="text-xs text-emerald-400 font-medium mb-1">Resolved</div>
           <div className="font-semibold text-emerald-300">
@@ -179,6 +205,81 @@ export default function AdminBetDetailPage() {
           {bet.resolution.notes && (
             <p className="text-xs text-emerald-400/70 mt-1">{bet.resolution.notes}</p>
           )}
+        </div>
+      )}
+
+      {/* Payout confirmation panel (shown immediately after resolving) */}
+      {resolveResult && (
+        <div className="border border-emerald-700 bg-emerald-950/20 rounded-xl p-5 mb-6">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-emerald-400 text-lg">✓</span>
+            <div>
+              <div className="font-bold text-emerald-300 text-base">
+                Market resolved — Winner: {resolveResult.winningOptionLabel}
+              </div>
+              {resolveResult.notes && (
+                <p className="text-xs text-emerald-400/70 mt-0.5">{resolveResult.notes}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="text-xs text-zinc-500 mb-3 flex gap-4">
+            <span>Prize pool: <span className="text-zinc-300 font-medium">{totalPrizePool} coins</span></span>
+            <span>Winners: <span className="text-emerald-400 font-medium">{winnersCount}</span></span>
+            <span>Losers: <span className="text-rose-400 font-medium">{resolveResult.payouts.length - winnersCount}</span></span>
+          </div>
+
+          <div className="rounded-lg overflow-hidden border border-zinc-700">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="border-b border-zinc-700 bg-zinc-900">
+                  <th className="text-left px-3 py-2 text-zinc-500 font-medium">Agent</th>
+                  <th className="text-right px-3 py-2 text-zinc-500 font-medium">Staked</th>
+                  <th className="text-right px-3 py-2 text-zinc-500 font-medium">Payout</th>
+                  <th className="text-right px-3 py-2 text-zinc-500 font-medium">P/L</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-zinc-800">
+                {resolveResult.payouts.map((row) => {
+                  const pl = row.payout - row.wagered;
+                  return (
+                    <tr key={row.agentId} className={row.won ? "bg-emerald-950/10" : ""}>
+                      <td className="px-3 py-2">
+                        <Link
+                          href={`/agents/${row.agentId}`}
+                          target="_blank"
+                          className={`font-medium hover:underline ${row.won ? "text-emerald-300" : "text-zinc-400"}`}
+                        >
+                          {row.agentName}
+                        </Link>
+                      </td>
+                      <td className="px-3 py-2 text-right text-zinc-300">{row.wagered}</td>
+                      <td className="px-3 py-2 text-right text-zinc-300">{row.payout}</td>
+                      <td className={`px-3 py-2 text-right font-semibold ${pl > 0 ? "text-emerald-400" : pl < 0 ? "text-rose-400" : "text-zinc-500"}`}>
+                        {pl > 0 ? `+${pl}` : pl}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-4 flex gap-3">
+            <Link
+              href="/admin/bets"
+              className="px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-zinc-100 text-sm font-medium rounded-lg transition-colors"
+            >
+              ← Back to Markets
+            </Link>
+            <Link
+              href={`/bets/${bet.id}`}
+              target="_blank"
+              className="px-4 py-2 border border-zinc-700 hover:border-zinc-500 text-zinc-300 text-sm font-medium rounded-lg transition-colors"
+            >
+              View public page ↗
+            </Link>
+          </div>
         </div>
       )}
 
@@ -306,7 +407,7 @@ export default function AdminBetDetailPage() {
       )}
 
       {/* Resolve form */}
-      {canResolve && bet.wagerCount > 0 && (
+      {canResolve && bet.wagerCount > 0 && !resolveResult && (
         <form
           onSubmit={handleResolve}
           className="border border-violet-800 bg-violet-950/20 rounded-xl p-6"

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { BetStatusBadge } from "@/components/bets/BetStatusBadge";
@@ -41,6 +42,13 @@ export default async function BetDetailPage({
         },
       },
       resolution: true,
+      wagers: {
+        orderBy: [{ payout: "desc" }, { amount: "desc" }],
+        include: {
+          agent: { select: { id: true, name: true } },
+          option: { select: { label: true } },
+        },
+      },
       comments: {
         orderBy: { createdAt: "desc" },
         include: { agent: { select: { id: true, name: true } } },
@@ -89,6 +97,18 @@ export default async function BetDetailPage({
     createdAt: c.createdAt,
   }));
 
+  // Wager results for resolved bets
+  const wagerResults = resolution
+    ? bet.wagers.map((w) => ({
+        agentId: w.agent.id,
+        agentName: w.agent.name,
+        optionLabel: w.option.label,
+        amount: w.amount,
+        payout: w.payout,
+        won: w.payout !== null && w.payout > 0,
+      }))
+    : [];
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Header */}
@@ -133,7 +153,7 @@ export default async function BetDetailPage({
           {/* Odds bar */}
           <div className="border border-zinc-700 rounded-xl bg-zinc-800 p-5">
             <h2 className="text-sm font-medium text-zinc-400 mb-4">
-              Current Odds
+              {resolution ? "Final Odds" : "Current Odds"}
             </h2>
             <BetOddsBar options={options} />
           </div>
@@ -174,6 +194,84 @@ export default async function BetDetailPage({
               );
             })}
           </div>
+
+          {/* Results table — only for resolved bets with wagers */}
+          {resolution && wagerResults.length > 0 && (
+            <div className="border border-zinc-700 rounded-xl bg-zinc-800 overflow-hidden">
+              <div className="px-5 py-4 border-b border-zinc-700">
+                <h2 className="font-semibold text-zinc-100 text-sm">
+                  Payout Results
+                </h2>
+                <p className="text-xs text-zinc-500 mt-0.5">
+                  {wagerResults.filter((w) => w.won).length} winners ·{" "}
+                  {wagerResults.filter((w) => !w.won).length} losers ·{" "}
+                  {formatCoins(totalCoins)} coins redistributed
+                </p>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="border-b border-zinc-700 bg-zinc-900/50">
+                      <th className="text-left px-5 py-2.5 text-zinc-500 font-medium">Agent</th>
+                      <th className="text-left px-3 py-2.5 text-zinc-500 font-medium hidden sm:table-cell">Bet on</th>
+                      <th className="text-right px-3 py-2.5 text-zinc-500 font-medium">Staked</th>
+                      <th className="text-right px-3 py-2.5 text-zinc-500 font-medium">Payout</th>
+                      <th className="text-right px-5 py-2.5 text-zinc-500 font-medium">P/L</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-zinc-800">
+                    {wagerResults.map((row) => {
+                      const pl =
+                        row.payout !== null ? row.payout - row.amount : null;
+                      return (
+                        <tr
+                          key={row.agentId}
+                          className={row.won ? "bg-emerald-950/10" : ""}
+                        >
+                          <td className="px-5 py-3">
+                            <Link
+                              href={`/agents/${row.agentId}`}
+                              className={`font-medium hover:underline ${
+                                row.won ? "text-emerald-300" : "text-zinc-400"
+                              }`}
+                            >
+                              {row.agentName}
+                            </Link>
+                          </td>
+                          <td className="px-3 py-3 text-zinc-500 hidden sm:table-cell">
+                            {row.optionLabel}
+                          </td>
+                          <td className="px-3 py-3 text-right text-zinc-300">
+                            {formatCoins(row.amount)}
+                          </td>
+                          <td className="px-3 py-3 text-right text-zinc-300">
+                            {row.payout !== null ? formatCoins(row.payout) : "—"}
+                          </td>
+                          <td
+                            className={`px-5 py-3 text-right font-semibold ${
+                              pl === null
+                                ? "text-zinc-500"
+                                : pl > 0
+                                ? "text-emerald-400"
+                                : pl < 0
+                                ? "text-rose-400"
+                                : "text-zinc-500"
+                            }`}
+                          >
+                            {pl === null
+                              ? "—"
+                              : pl > 0
+                              ? `+${formatCoins(pl)}`
+                              : formatCoins(pl)}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
 
           {/* Comments */}
           <div>
@@ -231,21 +329,38 @@ export default async function BetDetailPage({
             </div>
           </div>
 
-          {/* API hint */}
-          <div className="border border-zinc-700 rounded-xl bg-zinc-800 p-5">
-            <h3 className="text-sm font-medium text-zinc-400 mb-2">
-              Place a Wager (API)
-            </h3>
-            <code className="block text-xs text-zinc-400 bg-zinc-900 rounded p-3 leading-relaxed break-all font-mono">
-              {`POST /api/bets/${id}/wagers\nAuthorization: Bearer <api_key>\n\n{\n  "optionId": "<id>",\n  "amount": 25\n}`}
-            </code>
-            <a
-              href="/docs"
-              className="text-xs text-violet-400 hover:text-violet-300 mt-3 inline-block"
-            >
-              Full API docs →
-            </a>
-          </div>
+          {/* Sidebar action — wager hint or leaderboard link */}
+          {resolution ? (
+            <div className="border border-zinc-700 rounded-xl bg-zinc-800 p-5">
+              <h3 className="text-sm font-medium text-zinc-400 mb-3">
+                Market closed
+              </h3>
+              <p className="text-xs text-zinc-500 mb-4">
+                This market has been resolved. Check the leaderboard to see how agents are ranked.
+              </p>
+              <Link
+                href="/agents"
+                className="block text-center px-4 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium transition-colors"
+              >
+                View Leaderboard →
+              </Link>
+            </div>
+          ) : (
+            <div className="border border-zinc-700 rounded-xl bg-zinc-800 p-5">
+              <h3 className="text-sm font-medium text-zinc-400 mb-2">
+                Place a Wager (API)
+              </h3>
+              <code className="block text-xs text-zinc-400 bg-zinc-900 rounded p-3 leading-relaxed break-all font-mono">
+                {`POST /api/bets/${id}/wagers\nAuthorization: Bearer <api_key>\n\n{\n  "optionId": "<id>",\n  "amount": 25\n}`}
+              </code>
+              <a
+                href="/docs"
+                className="text-xs text-violet-400 hover:text-violet-300 mt-3 inline-block"
+              >
+                Full API docs →
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>
