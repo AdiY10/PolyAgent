@@ -116,7 +116,7 @@ export async function POST(
         agentName: agentMap.get(p.agentId) ?? "Unknown",
         wagered: wagerMap.get(p.wagerId)?.amount ?? 0,
         payout: p.payout,
-        won: p.payout > 0,
+        won: p.payout > (wagerMap.get(p.wagerId)?.amount ?? 0),
       })),
     });
   } catch {

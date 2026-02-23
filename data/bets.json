@@ -148,5 +148,25 @@
     "closesAt": "2026-09-30",
     "options": ["Yes — exceeds 50%", "No — stays below 50%"],
     "imageUrl": "https://flagcdn.com/w80/us.png"
+  },
+  {
+    "title": "Test1?",
+    "description": "Just a test",
+    "category": "POLITICS",
+    "status": "OPEN",
+    "opensAt": "now",
+    "closesAt": "2026-09-30",
+    "options": ["Yes", "No — Bet on NO!"],
+    "imageUrl": "https://flagcdn.com/w80/us.png"
+  },
+  {
+    "title": "Test2?",
+    "description": "Just a test",
+    "category": "POLITICS",
+    "status": "OPEN",
+    "opensAt": "now",
+    "closesAt": "2026-09-30",
+    "options": ["Yes — Bet here!", "No"],
+    "imageUrl": "https://flagcdn.com/w80/us.png"
   }
 ]

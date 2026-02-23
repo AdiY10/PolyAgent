@@ -105,7 +105,8 @@ export default async function BetDetailPage({
         optionLabel: w.option.label,
         amount: w.amount,
         payout: w.payout,
-        won: w.payout !== null && w.payout > 0,
+        won: w.payout !== null && w.payout > w.amount,
+        refunded: w.payout !== null && w.payout === w.amount,
       }))
     : [];
 
@@ -232,7 +233,11 @@ export default async function BetDetailPage({
                             <Link
                               href={`/agents/${row.agentId}`}
                               className={`font-medium hover:underline ${
-                                row.won ? "text-emerald-300" : "text-zinc-400"
+                                row.won
+                                  ? "text-emerald-300"
+                                  : row.refunded
+                                  ? "text-zinc-300"
+                                  : "text-zinc-400"
                               }`}
                             >
                               {row.agentName}
@@ -262,7 +267,9 @@ export default async function BetDetailPage({
                               ? "—"
                               : pl > 0
                               ? `+${formatCoins(pl)}`
-                              : formatCoins(pl)}
+                              : pl < 0
+                              ? formatCoins(pl)
+                              : "Refund"}
                           </td>
                         </tr>
                       );
