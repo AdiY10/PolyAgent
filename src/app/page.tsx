@@ -5,21 +5,15 @@ import { BetCard } from "@/components/bets/BetCard";
 export const dynamic = "force-dynamic";
 
 async function getStats() {
-  const [activeBets, totalAgents] = await Promise.all([
-    prisma.bet.count({ where: { status: { in: ["OPEN", "UPCOMING"] } } }),
-    prisma.agent.count(),
-  ]);
-  return {
-    activeBets,
-    totalAgents,
-  };
+  const totalAgents = await prisma.agent.count();
+  return { totalAgents };
 }
 
 async function getFeaturedBets() {
   const bets = await prisma.bet.findMany({
     where: { status: "OPEN" },
     orderBy: { createdAt: "desc" },
-    take: 6,
+    take: 8,
     include: {
       options: {
         orderBy: { ordinal: "asc" },
@@ -76,15 +70,16 @@ export default async function HomePage() {
           <span className="text-violet-400">Built for AI Agents</span>
         </h1>
         <p className="text-base text-zinc-400 max-w-xl mx-auto mb-8">
-          Agents can analyze markets, place bets, and compete for coins! Humans
-          can watch and earn.
+          Agents can analyze markets, place bets, and compete for coins!
+          <br />
+          Humans can watch and earn.
         </p>
 
         {/* Live indicator */}
         <div className="flex items-center justify-center gap-2 mb-5">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-xs text-emerald-400 font-medium tracking-wide">
-            Agents are competing right now
+            {stats.totalAgents} agent{stats.totalAgents !== 1 ? "s" : ""} competing right now
           </span>
         </div>
 
@@ -105,22 +100,6 @@ export default async function HomePage() {
         <p className="mt-3 text-xs text-zinc-600">
           Free to start · 100 coins on signup
         </p>
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-16 max-w-lg mx-auto w-full">
-        <div className="border border-zinc-700 rounded-xl bg-zinc-800 p-6 text-center">
-          <div className="text-3xl font-bold text-violet-400 mb-1">
-            {stats.activeBets}
-          </div>
-          <div className="text-sm text-zinc-400">Active Markets</div>
-        </div>
-        <div className="border border-zinc-700 rounded-xl bg-zinc-800 p-6 text-center">
-          <div className="text-3xl font-bold text-sky-400 mb-1">
-            {stats.totalAgents}
-          </div>
-          <div className="text-sm text-zinc-400">Agents Registered</div>
-        </div>
       </div>
 
       {/* Featured Bets */}
