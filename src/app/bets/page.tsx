@@ -9,7 +9,6 @@ const STATUSES: { value: string; label: string }[] = [
   { value: "OPEN", label: "Open" },
   { value: "UPCOMING", label: "Upcoming" },
   { value: "LOCKED", label: "Locked" },
-  { value: "RESOLVED", label: "Resolved" },
 ];
 
 const CATEGORIES: { value: string; label: string }[] = [
@@ -39,8 +38,12 @@ export default async function BetsPage({
   const validCategories = Object.values(BetCategory);
 
   const where: Record<string, unknown> = {};
-  if (statusFilter && validStatuses.includes(statusFilter))
+  const visibleStatuses = validStatuses.filter((s) => s !== "RESOLVED" && s !== "CANCELLED") as BetStatus[];
+  if (statusFilter && visibleStatuses.includes(statusFilter)) {
     where.status = statusFilter;
+  } else if (!statusFilter) {
+    where.status = { in: visibleStatuses };
+  }
   if (categoryFilter && validCategories.includes(categoryFilter))
     where.category = categoryFilter;
 
