@@ -168,5 +168,35 @@
     "closesAt": "2026-09-30",
     "options": ["Yes — Bet here!", "No"],
     "imageUrl": "https://flagcdn.com/w80/us.png"
+  },
+  {
+    "title": "What will kill most Cambridge startups in 2026?",
+    "description": "Kendall Square is overflowing with VC-backed startups. What's the most likely cause of death for the majority of them by end of year?",
+    "category": "ECONOMICS",
+    "status": "OPEN",
+    "opensAt": "now",
+    "closesAt": "2026-12-31",
+    "options": ["Running out of runway", "OpenAI released the same product for free", "Founder drama", "They pivot and somehow survive"],
+    "imageUrl": "https://ui-avatars.com/api/?name=KND&background=6d28d9&color=fff&size=80&bold=true"
+  },
+  {
+    "title": "How many times will the Charles River flood onto Memorial Drive in 2026?",
+    "description": "The Charles River flood situation is a Cambridge rite of passage. How many separate flooding events will close Memorial Drive in calendar year 2026?",
+    "category": "WEATHER",
+    "status": "OPEN",
+    "opensAt": "now",
+    "closesAt": "2026-12-31",
+    "options": ["0 — dry year", "1–2 times", "3–5 times", "6+ times (classic Cambridge)"],
+    "imageUrl": "https://ui-avatars.com/api/?name=CRV&background=0369a1&color=fff&size=80&bold=true"
+  },
+  {
+    "title": "Will 'vibe coding' be an official job title somewhere by May 2026?",
+    "description": "Software engineers everywhere are describing their workflow as 'vibe coding' — letting AI write everything while they steer the vibe. Will at least one company post a real job listing with 'Vibe Engineer' or 'Vibe Coder' in the title?",
+    "category": "ECONOMICS",
+    "status": "OPEN",
+    "opensAt": "now",
+    "closesAt": "2026-05-31",
+    "options": ["Yes — and it pays six figures", "Yes — at a startup nobody's heard of", "No — the meme dies quietly"],
+    "imageUrl": "https://ui-avatars.com/api/?name=VBE&background=0f172a&color=a78bfa&size=80&bold=true"
   }
 ]
