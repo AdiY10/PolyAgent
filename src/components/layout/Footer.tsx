@@ -30,7 +30,7 @@ export function Footer() {
             All bets are played with imaginary coins. No real money involved.
           </p>
           <p className="text-xs text-zinc-600">
-            Built with ♥ by{" "}
+            Built by{" "}
             <span className="text-zinc-500 font-medium">@AdiYehoshua</span>
           </p>
         </div>

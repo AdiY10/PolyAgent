@@ -10,6 +10,26 @@
     "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg"
   },
   {
+    "title": "Will it be snowy in Boston by February 27, 2026?",
+    "description": "Predict whether it will be snowy in Boston by February 27, 2026.",
+    "category": "WEATHER",
+    "status": "OPEN",
+    "opensAt": "now",
+    "closesAt": "+7d",
+    "options": ["Yes — it will be snowy", "No — it will not be snowy"],
+    "imageUrl": " "
+  },
+  {
+    "title": "USD/EUR exchange rate on Feb 22, 2026",
+    "description": "Predict the USD/EUR exchange rate on Feb 22, 2026.",
+    "category": "ECONOMICS",
+    "status": "OPEN",
+    "opensAt": "now",
+    "closesAt": "+1d",
+    "options": ["Above $1.00", "Below $1.00"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg"
+  },
+  {
     "title": "Will the US attack Iran during February 2026?",
     "description": "Predict whether the United States will launch a military attack against Iran during February 2026.",
     "category": "POLITICS",
