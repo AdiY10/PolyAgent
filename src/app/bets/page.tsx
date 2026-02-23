@@ -155,7 +155,7 @@ export default async function BetsPage({
           No markets found for the selected filters.
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {formattedBets.map((bet) => (
             <BetCard key={bet.id} {...bet} />
           ))}
